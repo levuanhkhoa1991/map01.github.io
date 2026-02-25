@@ -9,7 +9,17 @@ import { ChevronDown, Filter } from 'lucide-react';
 
 const VENUE_TYPES = ['Ballroom', 'Loft', 'Warehouse', 'Rooftop', 'Outdoor', 'Garden'];
 
-export default function VenuesSidebar() {
+import React, { useState } from 'react';
+import { useVenue } from '@/context/VenueContext';
+import { Button } from '@/components/ui/button';
+import { Slider } from '@/components/ui/slider';
+import { Checkbox } from '@/components/ui/checkbox';
+import { ChevronDown, Filter } from 'lucide-react';
+import clsx from 'clsx';
+
+const VENUE_TYPES = ['Ballroom', 'Loft', 'Warehouse', 'Rooftop', 'Outdoor', 'Garden'];
+
+export default function VenuesSidebar({ isSidebarOpen }: { isSidebarOpen: boolean }) {
   const { 
     filteredVenues, 
     selectedVenue, 
@@ -51,7 +61,13 @@ export default function VenuesSidebar() {
   };
 
   return (
-    <div className="w-96 bg-card border-r border-border flex flex-col h-full">
+    <div className={clsx(
+      "bg-card border-r border-border flex flex-col z-20",
+      "h-full w-full md:w-96 md:flex-shrink-0",
+      "absolute md:relative",
+      "transform transition-transform duration-300 ease-in-out",
+      isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+    )}>
       {/* Header with Tabs */}
       <div className="border-b border-border">
         {/* Tab Buttons */}
